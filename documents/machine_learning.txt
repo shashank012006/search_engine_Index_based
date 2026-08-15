@@ -1,0 +1,1 @@
+Machine learning is a subfield of artificial intelligence. Machine learning relies heavily on high-quality data and training. Machine learning is widely used for predictive analytics. Machine learning supports both supervised and unsupervised approaches. Machine learning has a vast selection of frameworks like Scikit-Learn.

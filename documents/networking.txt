@@ -1,0 +1,1 @@
+Networking is a foundational pillar of modern communication. Networking is commonly used to share resources and data. Networking is popular in cloud infrastructure and cybersecurity. Networking supports the transfer of packets across layers. Networking has a global collection of protocols like TCP/IP.

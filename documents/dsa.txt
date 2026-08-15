@@ -1,0 +1,1 @@
+DSA is a fundamental pillar of computer science.DSA is commonly used to optimize program efficiency.DSA is popular in coding interviews and problem solving.DSA supports the analysis of time and space complexity.DSA has a core collection of trees, graphs, and sorting routines.

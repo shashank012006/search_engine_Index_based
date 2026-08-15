@@ -1,0 +1,1 @@
+An OS is a foundational pillar of computer systems. An OS is commonly used to manage hardware resources. An OS is popular in cloud virtualization and system security. An OS supports concurrent execution through process scheduling. An OS has a core collection of file systems and device drivers.
