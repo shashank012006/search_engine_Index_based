@@ -15,16 +15,11 @@ with os.scandir(p) as es:
                 content = f.read()
                 words = [i.lower() for i in content.split(" ")]
                 cleaned_words = [word.replace('.', '').replace(',', '').replace('\n','') for word in words]
-
-                # nd_words = []
-                # for i in cleaned_words:
-                #     if i not in nd_words:
-                #         nd_words.append(i)
-
                 d[str(e.name)] = cleaned_words    
                 document_lengths[str(e.name)] = len(cleaned_words)           
 
-
+# this is id = 'inverted dictionary' which is like ex = {is : {python.txt:5,dsa:5}}
+#which helps in calculating term freq 
 # print(document_lengths)
 detected_words = {}  
 for i in d:
@@ -32,28 +27,12 @@ for i in d:
         if j not in  detected_words:
             detected_words[j] = {}
         detected_words[j][i] = detected_words[j].get(i,0)+1
-# print(detected_words)
 
-
-# search_words = str(input("Enter the word : ")).lower().split(" ")
-search_words = 'machine learning'.lower().split(" ")
+#this was my first ranked algorithm that I converted in tf-idf
+#tf(term freq) = number of time word repeated in document / total number of time word repeated in entire document
+# idf(inverted doc frequency) = 
+search_words = str(input("Enter the word : ")).lower().split(" ")
 results = {}
-# first_word = True
-# for word in search_words:
-#     if word in detected_words:
-
-#         files_with_word = detected_words[word]
-
-#         if first_word:
-#             results = list(files_with_word)
-#             first_word = False
-#         else:
-#             results = [file for file in results if file in files_with_word]
-
-#     else:
-#         results = []
-#         break
-# print(results)
 for word in search_words:
     if word in detected_words:
         for res in detected_words[word]:
@@ -68,8 +47,3 @@ ranked_results = sorted(results.items(), key=lambda x: x[1], reverse=True)
 print(ranked_results)
 
 
-word = "machine"
-document = "python.txt"
-tf = detected_words[word][document]/document_lengths[document]
-idf = math.log(len(d)/len(detected_words[word]))
-# print(tf*idf)
