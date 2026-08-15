@@ -30,7 +30,7 @@ for i in d:
 
 #this was my first ranked algorithm that I converted in tf-idf
 #tf(term freq) = number of time word repeated in document / total number of time word repeated in entire document
-# idf(inverted doc frequency) = 
+# idf(inverted doc frequency) = log(number of document/number of document that word exist)
 search_words = str(input("Enter the word : ")).lower().split(" ")
 results = {}
 for word in search_words:
