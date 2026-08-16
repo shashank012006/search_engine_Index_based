@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Sci-Fi HUD Search</title>
+  <!-- Google Fonts for a tech/clean font style -->
+  <link href="https://googleapis.com" rel="stylesheet">
+  <!-- FontAwesome for the UI icons -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Utilities Header Bar -->
+  <header class="top-nav">
+    <div class="left-controls">
+      <i class="fa-solid fa-chart-simple"></i>
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <div class="right-controls">
+      <i class="fa-solid fa-shield-halved"></i>
+      <i class="fa-solid fa-grid-3x3"></i>
+      <i class="fa-solid fa-user-gear"></i>
+    </div>
+  </header>
+
+  <!-- Main HUD Framework Container -->
+  <main class="hud-container">
+    
+    <!-- Central Arc Reactor / Triangle Energy Core Component -->
+    <div class="energy-core-wrapper">
+      <div class="outer-ring ring-spin"></div>
+      <div class="mid-ring ring-reverse"></div>
+      
+      <!-- Container holding the glowing central triangle element -->
+      <div class="triangle-core-container">
+        <div class="glowing-triangle"></div>
+      </div>
+      
+      <div class="core-glow"></div>
+    </div>
+
+    <!-- Main Glassmorphic Search Input Bar Group -->
+    <div class="search-bar-group">
+      <div class="search-inner-wrap">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Search anything..." class="hud-input" />
+        <button class="target-action-btn" aria-label="Target search button">
+          <i class="fa-solid fa-crosshairs"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id = 'display'></div>
+
+    <!-- Scroll Indicator Chevron Component -->
+    <div class="scroll-prompt">
+      <i class="fa-solid fa-angles-down pulse-anim"></i>
+    </div>
+
+  </main>
+
+<script src="./script.js"></script>
+</body>
+</html>
