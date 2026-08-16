@@ -31,19 +31,22 @@ for i in d:
 #this was my first ranked algorithm that I converted in tf-idf
 #tf(term freq) = number of time word repeated in document / total number of time word repeated in entire document
 # idf(inverted doc frequency) = 
-search_words = str(input("Enter the word : ")).lower().split(" ")
-results = {}
-for word in search_words:
-    if word in detected_words:
-        for res in detected_words[word]:
-            tf = detected_words[word][res]/document_lengths[res]
-            idf = math.log(len(d)/len(detected_words[word]))
-            tf_idf = tf*idf
-            if res not in results:
-                results[res] = 0
+
+def search(query):
+    results = {}
+    search_words = str(query).lower().split(" ")
+    for word in search_words:
+        if word in detected_words:
+            for res in detected_words[word]:
+                tf = detected_words[word][res]/document_lengths[res]
+                idf = math.log(len(d)/len(detected_words[word]))
+                tf_idf = tf*idf
+                if res not in results:
+                    results[res] = 0
             results[res] += tf_idf
         
-ranked_results = sorted(results.items(), key=lambda x: x[1], reverse=True)
-print(ranked_results)
+    ranked_results = sorted(results.items(), key=lambda x: x[1], reverse=True)
+    return ranked_results
 
-
+result = search("machine")
+print(result)
