@@ -1,0 +1,261 @@
+/* Base Document Variables and Canvas Reset */
+:root {
+    --bg-dark: #02060d;
+    --neon-cyan: #00f0ff;
+    --glow-blue: rgba(0, 240, 255, 0.25);
+    --glass-bg: rgba(2, 15, 30, 0.45);
+    --border-cyan: rgba(0, 240, 255, 0.4);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--bg-dark);
+    font-family: 'Rajdhani', sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: radial-gradient(circle at center, #061c30 0%, var(--bg-dark) 75%);
+  }
+  
+  /* Top System Header Controls Styling */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .top-nav i {
+    margin: 0 12px;
+    cursor: pointer;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+  
+  .top-nav i:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+  }
+  
+  /* Central Alignment Container Layout */
+  .hud-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 40px;
+  }
+  
+  /* Central Arc Reactor Power Core Layout */
+  .energy-core-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .outer-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px dashed var(--neon-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 25px var(--glow-blue);
+  }
+  
+  .mid-ring {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--neon-cyan);
+    border-bottom: 2px solid var(--neon-cyan);
+    border-radius: 50%;
+  }
+  
+  /* Absolute box container that perfectly locks the triangle size dimensions */
+  .triangle-core-container {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Slight adjustment to counter balance the visual weight of an inverted triangle */
+    transform: translateY(3px); 
+  }
+  
+  /* 
+    Pure CSS Neon Triangle Layer 
+    Uses border-masking techniques combined with drop-shadow vectors 
+    to build a clean, bright triangle element that mimics the image.
+  */
+  .glowing-triangle {
+    width: 0;
+    height: 0;
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    /* Downward facing point matches the reference picture core */
+    border-top: 42px solid var(--neon-cyan);
+    filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 5px #ffffff);
+    position: relative;
+  }
+  
+  /* Inner cut details to give the triangle depth */
+  .glowing-triangle::after {
+    content: '';
+    position: absolute;
+    top: -38px;
+    left: -18px;
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 31px solid var(--bg-dark);
+  }
+  
+  /* Futuristic Glassmorphic Input Search Container Styles */
+  .search-bar-group {
+    position: relative;
+    width: 650px;
+    max-width: 90%;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-cyan);
+    border-radius: 40px;
+    padding: 4px;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.15), inset 0 0 15px rgba(0, 240, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+  
+  .search-inner-wrap {
+    display: flex;
+    align-items: center;
+    padding: 10px 25px;
+  }
+  
+  .search-icon {
+    color: var(--neon-cyan);
+    font-size: 1.3rem;
+    margin-right: 15px;
+    text-shadow: 0 0 5px var(--neon-cyan);
+  }
+  
+  .hud-input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+  }
+  
+  .hud-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+  
+  .target-action-btn {
+    background: transparent;
+    border: none;
+    color: var(--neon-cyan);
+    font-size: 1.3rem;
+    cursor: pointer;
+    text-shadow: 0 0 5px var(--neon-cyan);
+    transition: transform 0.2s;
+  }
+  
+  .target-action-btn:hover {
+    transform: scale(1.15);
+  }
+  
+  /* Sharp Technical Bracket Corners for Search Bar Frame Container */
+  .corner-border {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--neon-cyan);
+  }
+  .top-left { top: -2px; left: 20px; border-right: none; border-bottom: none; }
+  .top-right { top: -2px; right: 20px; border-left: none; border-bottom: none; }
+  .bottom-left { bottom: -2px; left: 20px; border-right: none; border-top: none; }
+  .bottom-right { bottom: -2px; right: 20px; border-left: none; border-top: none; }
+  
+  /* Bottom Action Row Navigation Elements Styling */
+  .bottom-dock-nav {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+  }
+  
+  .dock-item {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  .dock-item:hover {
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 0 12px var(--glow-blue);
+    transform: translateY(-3px);
+  }
+  
+  /* Downward Nav Indicator Element Prompt */
+  .scroll-prompt {
+    margin-top: auto;
+    padding-bottom: 25px;
+    color: rgba(0, 240, 255, 0.4);
+    font-size: 1.2rem;
+  }
+  
+  /* HUD System Component Core Animations Engine */
+  .ring-spin {
+    animation: spinClockwise 22s linear infinite;
+  }
+  
+  .ring-reverse {
+    animation: spinCounterClockwise 12s linear infinite;
+  }
+  
+  .pulse-anim {
+    animation: elementPulse 2s infinite ease-in-out;
+  }
+  
+  @keyframes spinClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes spinCounterClockwise {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+  
+  @keyframes elementPulse {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(6px); }
+  }
+  
