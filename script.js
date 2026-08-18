@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const actionButton = document.getElementsByClassName('target-action-btn')[0];
     const display = document.getElementById('display');
 
+
     // This function creates standard sci-fi styling blocks for our feedback text
     function createMessageBanner(text, textColor, isPulse = false) {
         display.innerHTML = ""; // Clear current view
@@ -89,7 +90,7 @@ window.addEventListener('DOMContentLoaded', function() {
             cellFile.style.color = "#ffffff";
 
             const cellScore = document.createElement('div');
-            cellScore.textContent = item.score.toFixed(2);
+            cellScore.textContent = item.score.toFixed(4); // Showing 4 digits helps see smaller TF-IDF details
             cellScore.style.fontSize = "1.05rem";
             cellScore.style.color = "#00f0ff"; 
             cellScore.style.fontWeight = "600";
@@ -105,11 +106,11 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     // MAIN CONTROLLER FUNCTION
-    // This looks at what was typed and decides which of your 4 scenarios to display
+    // This connects directly to your Flask server!
     function executeSearch() {
-        const query = input.value.trim().toLowerCase();
+        const query = input.value.trim();
 
-        // If the box is completely empty, do nothing or clear the display
+        // If the box is completely empty, clear the display panels
         if (query === "") {
             display.innerHTML = "";
             return;
@@ -118,38 +119,39 @@ window.addEventListener('DOMContentLoaded', function() {
         // SCENARIO 1: Show "Searching..." immediately
         createMessageBanner("Searching system directories...", "#00f0ff", true);
 
-        // We use a 1.2 second delay simulation to let users see the states changing
-        setTimeout(function() {
-            try {
-                // SCENARIO 4: Simulate a breaking issue if user types 'error' or 'crash'
-                if (query === "error" || query === "crash") {
-                    throw new Error("System node timeout exception");
+        // Build URL structure passing the query along
+        const url = `http://127.0.0.1:5000/get-data?query=${encodeURIComponent(query)}`;
+
+        // Request real data from your running Python script engine
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network node fault encountered");
                 }
+                return response.json();
+            })
+            .then(data => {
+                // Convert Flask's mapping object {"dsa.txt": 0.52} into structural lists:
+                // [{file: "dsa.txt", score: 0.52}]
+                const structuredResults = Object.entries(data).map(([fileName, fileScore]) => {
+                    return {
+                        file: fileName,
+                        score: fileScore
+                    };
+                });
 
-                // Database mocks
-                const mockDatabase = [
-                    { file: "dsa.txt", score: 0.52 },
-                    { file: "machine_learning.txt", score: 0.21 },
-                    { file: "web_development.txt", score: 0.89 },
-                    { file: "database_design.txt", score: 0.44 }
-                ];
-
-                // Filter items to find filenames that match what was typed
-                const filteredResults = mockDatabase.filter(item => item.file.toLowerCase().includes(query));
-
-                if (filteredResults.length > 0) {
-                    // SCENARIO 2: Items found matching query text criteria
-                    renderResultsGrid(filteredResults);
+                if (structuredResults.length > 0) {
+                    // SCENARIO 2: Items found matching query criteria
+                    renderResultsGrid(structuredResults);
                 } else {
-                    // SCENARIO 3: Clean lookup query but zero entries located
+                    // SCENARIO 3: Zero matching documents located
                     createMessageBanner("No matching results located.", "#ffb700");
                 }
-
-            } catch (err) {
-                // SCENARIO 4 Catch Block: Displays glowing red system malfunction warning banner
-                createMessageBanner("CRITICAL ERROR: Something went wrong.", "#ff3333");
-            }
-        }, 1200); 
+            })
+            .catch(err => {
+                console.error("Transmission Error:", err);
+                createMessageBanner(err.message, "#ff3333");
+            });
     }
 
     // Event Listener assignments mapping to our controller
